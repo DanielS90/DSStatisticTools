@@ -103,3 +103,20 @@ Public Function DS_CommaListMake(ByVal cellRange As Range, Optional decimalSepar
     
     DS_CommaListMake = result
 End Function
+
+Public Function DS_PrintIQR(ByVal cellRange As Variant, Optional decimals As Variant)
+    If TypeOf cellRange Is Range Then
+        cellRange = DS_RangeToArray(cellRange)
+    End If
+    
+    If IsMissing(decimals) Then
+        decimals = 0
+    End If
+    
+    Dim q1 As Double
+    q1 = WorksheetFunction.Quartile(cellRange, 1)
+    Dim q3 As Double
+    q3 = WorksheetFunction.Quartile(cellRange, 3)
+    
+    DS_PrintIQR = WorksheetFunction.Round(q1, decimals) & " - " & WorksheetFunction.Round(q3, decimals)
+End Function
