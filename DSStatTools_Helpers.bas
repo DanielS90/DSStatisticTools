@@ -97,3 +97,99 @@ Public Sub DS_QuickSort(vArray As Variant, inLow As Long, inHi As Long)
   If (inLow < tmpHi) Then DS_QuickSort vArray, inLow, tmpHi
   If (tmpLow < inHi) Then DS_QuickSort vArray, tmpLow, inHi
 End Sub
+
+Public Function DS_JoinArrays(ByVal array1 As Variant, ByVal array2 As Variant)
+    Dim n1 As Double
+    n1 = UBound(array1) - LBound(array1) + 1
+    
+    Dim n2 As Double
+    n2 = UBound(array2) - LBound(array2) + 1
+    
+    Dim result() As Variant
+    ReDim result(0 To n1 + n2 - 1)
+    
+    Dim counter As Integer
+    
+    Dim val As Variant
+    For Each val In array1
+        result(counter) = val
+        counter = counter + 1
+    Next val
+    
+    For Each val In array2
+        result(counter) = val
+        counter = counter + 1
+    Next val
+    
+    DS_JoinArrays = result
+End Function
+
+Public Function DS_Occurrences(ByVal cellRange As Variant, ByVal comp As Variant)
+    If TypeOf cellRange Is Range Then
+        cellRange = DS_RangeToArray(cellRange)
+    End If
+    
+    Dim result As Integer
+    
+    Dim val As Variant
+    For Each val In cellRange
+        If comp Like "<=*" Then
+            If val <= DS_StringToNumber(Right(comp, Len(comp) - 2), ".") Then
+                result = result + 1
+            End If
+        ElseIf comp Like "<*" Then
+            If val < DS_StringToNumber(Right(comp, Len(comp) - 1), ".") Then
+                result = result + 1
+            End If
+        ElseIf comp Like ">=*" Then
+            If val >= DS_StringToNumber(Right(comp, Len(comp) - 2), ".") Then
+                result = result + 1
+            End If
+        ElseIf comp Like ">*" Then
+            If val > DS_StringToNumber(Right(comp, Len(comp) - 1), ".") Then
+                result = result + 1
+            End If
+        Else
+            If val Like comp Then
+                result = result + 1
+            End If
+        End If
+    Next val
+    
+    DS_Occurrences = result
+End Function
+
+Public Function DS_OccurrencesNot(ByVal cellRange As Variant, ByVal comp As Variant)
+    If TypeOf cellRange Is Range Then
+        cellRange = DS_RangeToArray(cellRange)
+    End If
+    
+    Dim result As Integer
+    
+    Dim val As Variant
+    For Each val In cellRange
+        If comp Like "<=*" Then
+            If Not val <= DS_StringToNumber(Right(comp, Len(comp) - 2), ".") Then
+                result = result + 1
+            End If
+        ElseIf comp Like "<*" Then
+            If Not val < DS_StringToNumber(Right(comp, Len(comp) - 1), ".") Then
+                result = result + 1
+            End If
+        ElseIf comp Like ">=*" Then
+            If Not val >= DS_StringToNumber(Right(comp, Len(comp) - 2), ".") Then
+                result = result + 1
+            End If
+        ElseIf comp Like ">*" Then
+            If Not val > DS_StringToNumber(Right(comp, Len(comp) - 1), ".") Then
+                result = result + 1
+            End If
+        Else
+            If Not val Like comp Then
+                result = result + 1
+            End If
+        End If
+    Next val
+    
+    DS_OccurrencesNot = result
+End Function
