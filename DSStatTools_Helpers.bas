@@ -124,7 +124,7 @@ Public Function DS_JoinArrays(ByVal array1 As Variant, ByVal array2 As Variant)
     DS_JoinArrays = result
 End Function
 
-Public Function DS_Occurrences(ByVal cellRange As Variant, ByVal comp As Variant)
+Public Function DS_Occurrences(ByVal cellRange As Variant, ByVal comp As Variant, Optional comp2 As Variant, Optional comp3 As Variant, Optional comp4 As Variant)
     If TypeOf cellRange Is Range Then
         cellRange = DS_RangeToArray(cellRange)
     End If
@@ -133,33 +133,21 @@ Public Function DS_Occurrences(ByVal cellRange As Variant, ByVal comp As Variant
     
     Dim val As Variant
     For Each val In cellRange
-        If comp Like "<=*" Then
-            If val <= DS_StringToNumber(Right(comp, Len(comp) - 2), ".") Then
-                result = result + 1
-            End If
-        ElseIf comp Like "<*" Then
-            If val < DS_StringToNumber(Right(comp, Len(comp) - 1), ".") Then
-                result = result + 1
-            End If
-        ElseIf comp Like ">=*" Then
-            If val >= DS_StringToNumber(Right(comp, Len(comp) - 2), ".") Then
-                result = result + 1
-            End If
-        ElseIf comp Like ">*" Then
-            If val > DS_StringToNumber(Right(comp, Len(comp) - 1), ".") Then
-                result = result + 1
-            End If
-        Else
-            If val Like comp Then
-                result = result + 1
-            End If
+        If DS_PatternMatch(val, comp) Then
+            result = result + 1
+        ElseIf DS_PatternMatch(val, comp2) Then
+            result = result + 1
+        ElseIf DS_PatternMatch(val, comp3) Then
+            result = result + 1
+        ElseIf DS_PatternMatch(val, comp4) Then
+            result = result + 1
         End If
     Next val
     
     DS_Occurrences = result
 End Function
 
-Public Function DS_OccurrencesNot(ByVal cellRange As Variant, ByVal comp As Variant)
+Public Function DS_OccurrencesNot(ByVal cellRange As Variant, ByVal comp As Variant, Optional andNot2 As Variant, Optional andNot3 As Variant, Optional andNot4 As Variant)
     If TypeOf cellRange Is Range Then
         cellRange = DS_RangeToArray(cellRange)
     End If
@@ -168,28 +156,96 @@ Public Function DS_OccurrencesNot(ByVal cellRange As Variant, ByVal comp As Vari
     
     Dim val As Variant
     For Each val In cellRange
-        If comp Like "<=*" Then
-            If Not val <= DS_StringToNumber(Right(comp, Len(comp) - 2), ".") Then
-                result = result + 1
+        Dim match As Boolean
+        match = DS_PatternMatch(val, comp)
+        
+        If Not IsMissing(andNot2) Then
+            If DS_PatternMatch(val, andNot2) Then
+                match = True
             End If
-        ElseIf comp Like "<*" Then
-            If Not val < DS_StringToNumber(Right(comp, Len(comp) - 1), ".") Then
-                result = result + 1
+        End If
+        
+        If Not IsMissing(andNot3) Then
+            If DS_PatternMatch(val, andNot3) Then
+                match = True
             End If
-        ElseIf comp Like ">=*" Then
-            If Not val >= DS_StringToNumber(Right(comp, Len(comp) - 2), ".") Then
-                result = result + 1
+        End If
+        
+        If Not IsMissing(andNot4) Then
+            If DS_PatternMatch(val, andNot4) Then
+                match = True
             End If
-        ElseIf comp Like ">*" Then
-            If Not val > DS_StringToNumber(Right(comp, Len(comp) - 1), ".") Then
-                result = result + 1
-            End If
-        Else
-            If Not val Like comp Then
-                result = result + 1
-            End If
+        End If
+    
+        If Not match Then
+            result = result + 1
         End If
     Next val
     
     DS_OccurrencesNot = result
+End Function
+
+Public Function DS_PatternMatch(ByVal val As Variant, ByVal comp As Variant)
+    DS_PatternMatch = False
+    If IsMissing(val) Or IsMissing(comp) Then
+        Exit Function
+    End If
+    
+    If comp Like "<=*" Then
+        If val <= DS_StringToNumber(Right(comp, Len(comp) - 2), ".") Then
+            DS_PatternMatch = True
+        End If
+    ElseIf comp Like "<*" Then
+        If val < DS_StringToNumber(Right(comp, Len(comp) - 1), ".") Then
+            DS_PatternMatch = True
+        End If
+    ElseIf comp Like ">=*" Then
+        If val >= DS_StringToNumber(Right(comp, Len(comp) - 2), ".") Then
+            DS_PatternMatch = True
+        End If
+    ElseIf comp Like ">*" Then
+        If val > DS_StringToNumber(Right(comp, Len(comp) - 1), ".") Then
+            DS_PatternMatch = True
+        End If
+    Else
+        If val Like comp Then
+            DS_PatternMatch = True
+        End If
+    End If
+End Function
+
+Public Function DS_Max(ByVal cellRange As Variant)
+    If TypeOf cellRange Is Range Then
+        cellRange = DS_RangeToArray(cellRange)
+    End If
+    
+    Dim result As Variant
+    result = cellRange(LBound(cellRange))
+    
+    Dim val As Variant
+    For Each val In cellRange
+        If val > result Then
+            result = val
+        End If
+    Next val
+    
+    DS_Max = result
+End Function
+
+Public Function DS_Min(ByVal cellRange As Variant)
+    If TypeOf cellRange Is Range Then
+        cellRange = DS_RangeToArray(cellRange)
+    End If
+    
+    Dim result As Variant
+    result = cellRange(LBound(cellRange))
+    
+    Dim val As Variant
+    For Each val In cellRange
+        If val < result Then
+            result = val
+        End If
+    Next val
+    
+    DS_Min = result
 End Function
