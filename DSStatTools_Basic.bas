@@ -22,7 +22,7 @@ Public Function DS_CountIfAny(ByVal cellRange As Range, ByVal comp1 As Variant, 
     End If
 End Function
 
-Public Function DS_CommaListAsArray(ByVal cellRange As Range)
+Public Function DS_CommaListAsArray(ByVal cellRange As Range, Optional castNumber As Variant)
     Dim valueArray() As Variant
     ReDim valueArray(0)
     Dim counter As Integer
@@ -32,7 +32,11 @@ Public Function DS_CommaListAsArray(ByVal cellRange As Range)
         values = split(currentCell, ",")
         For Each value In values
             ReDim Preserve valueArray(0 To counter)
-            valueArray(counter) = value
+            If IsMissing(castNumber) Then
+                valueArray(counter) = value
+            Else
+                valueArray(counter) = DS_StringToNumber(value, ".")
+            End If
             counter = counter + 1
         Next value
     Next currentCell
@@ -48,6 +52,16 @@ Public Function DS_CommaListCountValue(ByVal cellRange As Range, ByVal comp As V
     For Each val In valueArray
         If val Like comp Then DS_CommaListCountValue = DS_CommaListCountValue + 1
     Next val
+End Function
+
+Public Function DS_CommaListCountEntries(ByVal cellRange As Range)
+    Dim valueArray() As Variant
+    valueArray = DS_CommaListAsArray(cellRange)
+    
+    DS_CommaListCountEntries = UBound(valueArray) - LBound(valueArray) + 1
+    If DS_CommaListCountEntries = 1 And IsEmpty(valueArray(0)) Then
+        DS_CommaListCountEntries = 0
+    End If
 End Function
 
 Public Function DS_CommaListValueAt(ByVal cellRange As Range, ByVal index As Integer, Optional decimalSeparator As Variant)
