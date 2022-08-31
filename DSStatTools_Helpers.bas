@@ -249,3 +249,7 @@ Public Function DS_Min(ByVal cellRange As Variant)
     
     DS_Min = result
 End Function
+
+Function DS_ValueInArray(needle As Variant, haystack As Variant) As Boolean
+  DS_ValueInArray = (UBound(Filter(haystack, needle)) > -1)
+End Function
