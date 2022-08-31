@@ -1,7 +1,7 @@
 Option Compare Text
 
 Public Function DS_Select(ByVal cellRange As Range, ByVal conditionRange As Range, ByVal comparison As String)
-    If Not cellRange.Rows.Count = conditionRange.Rows.Count Then
+    If Not cellRange.Rows.count = conditionRange.Rows.count Then
         Exit Function
     End If
     
@@ -10,7 +10,7 @@ Public Function DS_Select(ByVal cellRange As Range, ByVal conditionRange As Rang
     Dim iR As Integer
     Dim counter As Integer
     counter = 0
-    For iR = 1 To cellRange.Rows.Count
+    For iR = 1 To cellRange.Rows.count
         If DS_PatternMatch(conditionRange(iR, 1), comparison) Then
             ReDim Preserve result(0 To counter)
             result(counter) = cellRange(iR, 1)
@@ -22,7 +22,7 @@ Public Function DS_Select(ByVal cellRange As Range, ByVal conditionRange As Rang
 End Function
 
 Public Function DS_SelectAND(ByVal cellRange As Range, ByVal conditionRange As Range, ByVal comp As String, Optional comp2 As Variant, Optional comp3 As Variant, Optional comp4 As Variant)
-    If Not cellRange.Rows.Count = conditionRange.Rows.Count Then
+    If Not cellRange.Rows.count = conditionRange.Rows.count Then
         Exit Function
     End If
     
@@ -31,7 +31,7 @@ Public Function DS_SelectAND(ByVal cellRange As Range, ByVal conditionRange As R
     Dim iR As Integer
     Dim counter As Integer
     counter = 0
-    For iR = 1 To cellRange.Rows.Count
+    For iR = 1 To cellRange.Rows.count
         Dim match As Boolean
         match = False
         
@@ -74,7 +74,7 @@ Public Function DS_SelectAND(ByVal cellRange As Range, ByVal conditionRange As R
 End Function
 
 Public Function DS_SelectOR(ByVal cellRange As Range, ByVal conditionRange As Range, ByVal comp As String, Optional comp2 As Variant, Optional comp3 As Variant, Optional comp4 As Variant)
-    If Not cellRange.Rows.Count = conditionRange.Rows.Count Then
+    If Not cellRange.Rows.count = conditionRange.Rows.count Then
         Exit Function
     End If
     
@@ -83,7 +83,7 @@ Public Function DS_SelectOR(ByVal cellRange As Range, ByVal conditionRange As Ra
     Dim iR As Integer
     Dim counter As Integer
     counter = 0
-    For iR = 1 To cellRange.Rows.Count
+    For iR = 1 To cellRange.Rows.count
         Dim match As Boolean
         match = False
         
@@ -119,3 +119,29 @@ Public Function DS_SelectOR(ByVal cellRange As Range, ByVal conditionRange As Ra
     DS_SelectOR = result
 End Function
 
+Public Function DS_UniqueValues(ByVal cellRange As Variant)
+    If TypeOf cellRange Is Range Then
+        cellRange = DS_RangeToArray(cellRange)
+    End If
+    
+    Dim result() As Variant
+    ReDim result(0)
+    
+    Dim valueCounter As Integer
+    valueCounter = 0
+    
+    Dim val As Variant
+    For Each val In cellRange
+        If Not DS_ValueInArray(val, result) Then
+            ReDim Preserve result(valueCounter)
+            result(UBound(result)) = val
+            valueCounter = valueCounter + 1
+        End If
+    Next val
+    
+    If valueCounter > 0 Then
+        DS_UniqueValues = result
+    Else
+        DS_UniqueValues = Empty
+    End If
+End Function
