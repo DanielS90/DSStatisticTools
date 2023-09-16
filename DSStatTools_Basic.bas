@@ -44,6 +44,27 @@ Public Function DS_CommaListAsArray(ByVal cellRange As Range, Optional castNumbe
     DS_CommaListAsArray = valueArray
 End Function
 
+Public Function DS_CSVStringAsArray(ByVal csvString As String, Optional castNumber As Variant)
+    Dim valueArray() As Variant
+    ReDim valueArray(0)
+    Dim counter As Integer
+    counter = 0
+    
+    Dim values() As String
+    values = split(csvString, ",")
+    For Each value In values
+        ReDim Preserve valueArray(0 To counter)
+        If IsMissing(castNumber) Then
+            valueArray(counter) = value
+        Else
+            valueArray(counter) = DS_StringToNumber(value, ".")
+        End If
+        counter = counter + 1
+    Next value
+    
+    DS_CSVStringAsArray = valueArray
+End Function
+
 Public Function DS_CommaListCountValue(ByVal cellRange As Range, ByVal comp As Variant)
     Dim valueArray() As Variant
     valueArray = DS_CommaListAsArray(cellRange)
@@ -85,9 +106,11 @@ Public Function DS_RangeToArray(ByVal cellRange As Range)
     Dim counter As Integer
     counter = 0
     For Each currentCell In cellRange
-        ReDim Preserve valueArray(0 To counter)
-        valueArray(counter) = currentCell.value
-        counter = counter + 1
+        If Not IsEmpty(currentCell) Then
+            ReDim Preserve valueArray(0 To counter)
+            valueArray(counter) = currentCell.value
+            counter = counter + 1
+        End If
     Next currentCell
     DS_RangeToArray = valueArray
 End Function
@@ -134,3 +157,68 @@ Public Function DS_PrintIQR(ByVal cellRange As Variant, Optional decimals As Var
     
     DS_PrintIQR = WorksheetFunction.Round(q1, decimals) & " - " & WorksheetFunction.Round(q3, decimals)
 End Function
+
+Public Function DS_MergeRangesToArray(ByVal cellRange1 As Range, Optional cellRange2 As Variant, Optional cellRange3 As Variant, Optional cellRange4 As Variant, Optional cellRange5 As Variant, Optional cellRange6 As Variant, Optional cellRange7 As Variant, Optional cellRange8 As Variant, Optional cellRange9 As Variant, Optional cellRange10 As Variant)
+    Dim valueArray() As Variant
+    valueArray = DS_RangeToArray(cellRange1)
+    
+    Dim valueArrayAdd() As Variant
+    If Not IsMissing(cellRange2) Then
+        valueArrayAdd = DS_RangeToArray(cellRange2)
+        valueArray = DS_AppendToArray(valueArray, valueArrayAdd)
+    End If
+    
+    If Not IsMissing(cellRange3) Then
+        valueArrayAdd = DS_RangeToArray(cellRange3)
+        valueArray = DS_AppendToArray(valueArray, valueArrayAdd)
+    End If
+    
+    If Not IsMissing(cellRange4) Then
+        valueArrayAdd = DS_RangeToArray(cellRange4)
+        valueArray = DS_AppendToArray(valueArray, valueArrayAdd)
+    End If
+    
+    If Not IsMissing(cellRange5) Then
+        valueArrayAdd = DS_RangeToArray(cellRange5)
+        valueArray = DS_AppendToArray(valueArray, valueArrayAdd)
+    End If
+    
+    If Not IsMissing(cellRange6) Then
+        valueArrayAdd = DS_RangeToArray(cellRange6)
+        valueArray = DS_AppendToArray(valueArray, valueArrayAdd)
+    End If
+    
+    If Not IsMissing(cellRange7) Then
+        valueArrayAdd = DS_RangeToArray(cellRange7)
+        valueArray = DS_AppendToArray(valueArray, valueArrayAdd)
+    End If
+    
+    If Not IsMissing(cellRange8) Then
+        valueArrayAdd = DS_RangeToArray(cellRange8)
+        valueArray = DS_AppendToArray(valueArray, valueArrayAdd)
+    End If
+    
+    If Not IsMissing(cellRange9) Then
+        valueArrayAdd = DS_RangeToArray(cellRange9)
+        valueArray = DS_AppendToArray(valueArray, valueArrayAdd)
+    End If
+    
+    If Not IsMissing(cellRange10) Then
+        valueArrayAdd = DS_RangeToArray(cellRange10)
+        valueArray = DS_AppendToArray(valueArray, valueArrayAdd)
+    End If
+    
+    Dim resultArray As Variant
+    ReDim resultArray(0 To 0)
+    Dim counter As Integer
+    For Each value In valueArray
+        If Not IsEmpty(value) Then
+            ReDim Preserve resultArray(0 To counter)
+            resultArray(counter) = value
+            counter = counter + 1
+        End If
+    Next value
+    
+    DS_MergeRangesToArray = resultArray
+End Function
+
