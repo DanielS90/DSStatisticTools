@@ -18,7 +18,11 @@ Public Function DS_Select(ByVal cellRange As Range, ByVal conditionRange As Rang
         End If
     Next iR
     
-    DS_Select = result
+    If counter > 0 Then
+        DS_Select = result
+    Else
+        DS_Select = Empty
+    End If
 End Function
 
 Public Function DS_SelectAND(ByVal cellRange As Range, ByVal conditionRange As Range, ByVal comp As String, Optional conditionRange2 As Variant, Optional comp2 As Variant, Optional conditionRange3 As Variant, Optional comp3 As Variant, Optional conditionRange4 As Variant, Optional comp4 As Variant)
@@ -88,7 +92,11 @@ Public Function DS_SelectAND(ByVal cellRange As Range, ByVal conditionRange As R
         End If
     Next iR
     
-    DS_SelectAND = result
+    If counter > 0 Then
+        DS_SelectAND = result
+    Else
+        DS_SelectAND = Empty
+    End If
 End Function
 
 Public Function DS_SelectOR(ByVal cellRange As Range, ByVal conditionRange As Range, ByVal comp As String, Optional conditionRange2 As Variant, Optional comp2 As Variant, Optional conditionRange3 As Variant, Optional comp3 As Variant, Optional conditionRange4 As Variant, Optional comp4 As Variant)
@@ -152,7 +160,11 @@ Public Function DS_SelectOR(ByVal cellRange As Range, ByVal conditionRange As Ra
         End If
     Next iR
     
-    DS_SelectOR = result
+    If counter > 0 Then
+        DS_SelectOR = result
+    Else
+        DS_SelectOR = Empty
+    End If
 End Function
 
 Public Function DS_UniqueValues(ByVal cellRange As Variant)
@@ -181,3 +193,4 @@ Public Function DS_UniqueValues(ByVal cellRange As Variant)
         DS_UniqueValues = Empty
     End If
 End Function
+
