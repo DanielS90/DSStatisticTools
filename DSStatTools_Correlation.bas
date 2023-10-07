@@ -1,4 +1,30 @@
 Public Function DS_Correlation_PointBiserialR(ByVal metricRange As Variant, ByVal binaryRange As Variant)
+    If TypeOf cellRange1 Is Range And TypeOf cellRange2 Is Range Then
+        Dim array1() As Variant
+        ReDim array1(0)
+        Dim array2() As Variant
+        ReDim array2(0)
+        Dim counter As Integer
+        counter = 0
+        Dim currentCellPos As Integer
+        currentCellPos = 1
+        
+        For currentCellPos = 1 To cellRange1.Rows.count
+            If currentCellPos <= cellRange2.Rows.count Then
+                If Not IsEmpty(cellRange1.Cells(currentCellPos, 1)) And Not IsEmpty(cellRange2.Cells(currentCellPos, 1)) Then
+                    ReDim Preserve array1(0 To counter)
+                    ReDim Preserve array2(0 To counter)
+                    array1(counter) = cellRange1.Cells(currentCellPos, 1).value
+                    array2(counter) = cellRange2.Cells(currentCellPos, 1).value
+                    counter = counter + 1
+                End If
+            End If
+        Next
+        
+        cellRange1 = array1
+        cellRange2 = array2
+    End If
+    
     If TypeOf metricRange Is Range Then
         metricRange = DS_RangeToArray(metricRange)
     End If
@@ -52,6 +78,32 @@ Public Function DS_Correlation_PointBiserialR(ByVal metricRange As Variant, ByVa
 End Function
 
 Public Function DS_Correlation_PointBiserialP(ByVal metricRange As Variant, ByVal binaryRange As Variant)
+    If TypeOf cellRange1 Is Range And TypeOf cellRange2 Is Range Then
+        Dim array1() As Variant
+        ReDim array1(0)
+        Dim array2() As Variant
+        ReDim array2(0)
+        Dim counter As Integer
+        counter = 0
+        Dim currentCellPos As Integer
+        currentCellPos = 1
+        
+        For currentCellPos = 1 To cellRange1.Rows.count
+            If currentCellPos <= cellRange2.Rows.count Then
+                If Not IsEmpty(cellRange1.Cells(currentCellPos, 1)) And Not IsEmpty(cellRange2.Cells(currentCellPos, 1)) Then
+                    ReDim Preserve array1(0 To counter)
+                    ReDim Preserve array2(0 To counter)
+                    array1(counter) = cellRange1.Cells(currentCellPos, 1).value
+                    array2(counter) = cellRange2.Cells(currentCellPos, 1).value
+                    counter = counter + 1
+                End If
+            End If
+        Next
+        
+        cellRange1 = array1
+        cellRange2 = array2
+    End If
+    
     If TypeOf metricRange Is Range Then
         metricRange = DS_RangeToArray(metricRange)
     End If
@@ -76,6 +128,32 @@ Public Function DS_Correlation_PointBiserialP(ByVal metricRange As Variant, ByVa
 End Function
 
 Public Function DS_Correlation_SpearmanR(ByVal cellRange1 As Variant, ByVal cellRange2 As Variant)
+    If TypeOf cellRange1 Is Range And TypeOf cellRange2 Is Range Then
+        Dim array1() As Variant
+        ReDim array1(0)
+        Dim array2() As Variant
+        ReDim array2(0)
+        Dim counter As Integer
+        counter = 0
+        Dim currentCellPos As Integer
+        currentCellPos = 1
+        
+        For currentCellPos = 1 To cellRange1.Rows.count
+            If currentCellPos <= cellRange2.Rows.count Then
+                If Not IsEmpty(cellRange1.Cells(currentCellPos, 1)) And Not IsEmpty(cellRange2.Cells(currentCellPos, 1)) Then
+                    ReDim Preserve array1(0 To counter)
+                    ReDim Preserve array2(0 To counter)
+                    array1(counter) = cellRange1.Cells(currentCellPos, 1).value
+                    array2(counter) = cellRange2.Cells(currentCellPos, 1).value
+                    counter = counter + 1
+                End If
+            End If
+        Next
+        
+        cellRange1 = array1
+        cellRange2 = array2
+    End If
+    
     If TypeOf cellRange1 Is Range Then
         cellRange1 = DS_RangeToArray(cellRange1)
     End If
@@ -106,6 +184,32 @@ Public Function DS_Correlation_SpearmanR(ByVal cellRange1 As Variant, ByVal cell
 End Function
 
 Public Function DS_Correlation_SpearmanP(ByVal cellRange1 As Variant, ByVal cellRange2 As Variant)
+    If TypeOf cellRange1 Is Range And TypeOf cellRange2 Is Range Then
+        Dim array1() As Variant
+        ReDim array1(0)
+        Dim array2() As Variant
+        ReDim array2(0)
+        Dim counter As Integer
+        counter = 0
+        Dim currentCellPos As Integer
+        currentCellPos = 1
+        
+        For currentCellPos = 1 To cellRange1.Rows.count
+            If currentCellPos <= cellRange2.Rows.count Then
+                If Not IsEmpty(cellRange1.Cells(currentCellPos, 1)) And Not IsEmpty(cellRange2.Cells(currentCellPos, 1)) Then
+                    ReDim Preserve array1(0 To counter)
+                    ReDim Preserve array2(0 To counter)
+                    array1(counter) = cellRange1.Cells(currentCellPos, 1).value
+                    array2(counter) = cellRange2.Cells(currentCellPos, 1).value
+                    counter = counter + 1
+                End If
+            End If
+        Next
+        
+        cellRange1 = array1
+        cellRange2 = array2
+    End If
+    
     If TypeOf cellRange1 Is Range Then
         cellRange1 = DS_RangeToArray(cellRange1)
     End If
@@ -136,6 +240,32 @@ Public Function DS_Correlation_SpearmanP(ByVal cellRange1 As Variant, ByVal cell
 End Function
 
 Public Function DS_Correlation_Spearman95CI(ByVal cellRange1 As Variant, ByVal cellRange2 As Variant, Optional decimals As Variant)
+    If TypeOf cellRange1 Is Range And TypeOf cellRange2 Is Range Then
+        Dim array1() As Variant
+        ReDim array1(0)
+        Dim array2() As Variant
+        ReDim array2(0)
+        Dim counter As Integer
+        counter = 0
+        Dim currentCellPos As Integer
+        currentCellPos = 1
+        
+        For currentCellPos = 1 To cellRange1.Rows.count
+            If currentCellPos <= cellRange2.Rows.count Then
+                If Not IsEmpty(cellRange1.Cells(currentCellPos, 1)) And Not IsEmpty(cellRange2.Cells(currentCellPos, 1)) Then
+                    ReDim Preserve array1(0 To counter)
+                    ReDim Preserve array2(0 To counter)
+                    array1(counter) = cellRange1.Cells(currentCellPos, 1).value
+                    array2(counter) = cellRange2.Cells(currentCellPos, 1).value
+                    counter = counter + 1
+                End If
+            End If
+        Next
+        
+        cellRange1 = array1
+        cellRange2 = array2
+    End If
+    
     If TypeOf cellRange1 Is Range Then
         cellRange1 = DS_RangeToArray(cellRange1)
     End If
@@ -170,6 +300,32 @@ Public Function DS_Correlation_Spearman95CI(ByVal cellRange1 As Variant, ByVal c
 End Function
 
 Public Function DS_Correlation_PearsonR(ByVal cellRange1 As Variant, ByVal cellRange2 As Variant)
+    If TypeOf cellRange1 Is Range And TypeOf cellRange2 Is Range Then
+        Dim array1() As Variant
+        ReDim array1(0)
+        Dim array2() As Variant
+        ReDim array2(0)
+        Dim counter As Integer
+        counter = 0
+        Dim currentCellPos As Integer
+        currentCellPos = 1
+        
+        For currentCellPos = 1 To cellRange1.Rows.count
+            If currentCellPos <= cellRange2.Rows.count Then
+                If Not IsEmpty(cellRange1.Cells(currentCellPos, 1)) And Not IsEmpty(cellRange2.Cells(currentCellPos, 1)) Then
+                    ReDim Preserve array1(0 To counter)
+                    ReDim Preserve array2(0 To counter)
+                    array1(counter) = cellRange1.Cells(currentCellPos, 1).value
+                    array2(counter) = cellRange2.Cells(currentCellPos, 1).value
+                    counter = counter + 1
+                End If
+            End If
+        Next
+        
+        cellRange1 = array1
+        cellRange2 = array2
+    End If
+    
     If TypeOf cellRange1 Is Range Then
         cellRange1 = DS_RangeToArray(cellRange1)
     End If
@@ -188,6 +344,32 @@ Public Function DS_Correlation_PearsonR(ByVal cellRange1 As Variant, ByVal cellR
 End Function
 
 Public Function DS_Correlation_PearsonP(ByVal cellRange1 As Variant, ByVal cellRange2 As Variant)
+    If TypeOf cellRange1 Is Range And TypeOf cellRange2 Is Range Then
+        Dim array1() As Variant
+        ReDim array1(0)
+        Dim array2() As Variant
+        ReDim array2(0)
+        Dim counter As Integer
+        counter = 0
+        Dim currentCellPos As Integer
+        currentCellPos = 1
+        
+        For currentCellPos = 1 To cellRange1.Rows.count
+            If currentCellPos <= cellRange2.Rows.count Then
+                If Not IsEmpty(cellRange1.Cells(currentCellPos, 1)) And Not IsEmpty(cellRange2.Cells(currentCellPos, 1)) Then
+                    ReDim Preserve array1(0 To counter)
+                    ReDim Preserve array2(0 To counter)
+                    array1(counter) = cellRange1.Cells(currentCellPos, 1).value
+                    array2(counter) = cellRange2.Cells(currentCellPos, 1).value
+                    counter = counter + 1
+                End If
+            End If
+        Next
+        
+        cellRange1 = array1
+        cellRange2 = array2
+    End If
+    
     If TypeOf cellRange1 Is Range Then
         cellRange1 = DS_RangeToArray(cellRange1)
     End If
@@ -218,6 +400,32 @@ Public Function DS_Correlation_PearsonP(ByVal cellRange1 As Variant, ByVal cellR
 End Function
 
 Public Function DS_Correlation_Pearson95CI(ByVal cellRange1 As Variant, ByVal cellRange2 As Variant, Optional decimals As Variant)
+    If TypeOf cellRange1 Is Range And TypeOf cellRange2 Is Range Then
+        Dim array1() As Variant
+        ReDim array1(0)
+        Dim array2() As Variant
+        ReDim array2(0)
+        Dim counter As Integer
+        counter = 0
+        Dim currentCellPos As Integer
+        currentCellPos = 1
+        
+        For currentCellPos = 1 To cellRange1.Rows.count
+            If currentCellPos <= cellRange2.Rows.count Then
+                If Not IsEmpty(cellRange1.Cells(currentCellPos, 1)) And Not IsEmpty(cellRange2.Cells(currentCellPos, 1)) Then
+                    ReDim Preserve array1(0 To counter)
+                    ReDim Preserve array2(0 To counter)
+                    array1(counter) = cellRange1.Cells(currentCellPos, 1).value
+                    array2(counter) = cellRange2.Cells(currentCellPos, 1).value
+                    counter = counter + 1
+                End If
+            End If
+        Next
+        
+        cellRange1 = array1
+        cellRange2 = array2
+    End If
+    
     If TypeOf cellRange1 Is Range Then
         cellRange1 = DS_RangeToArray(cellRange1)
     End If
