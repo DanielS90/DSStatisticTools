@@ -158,7 +158,7 @@ Public Function DS_Correlation_Spearman95CI(ByVal cellRange1 As Variant, ByVal c
     n = UBound(cellRange1) - LBound(cellRange1) + 1
     
     Dim sd As Double
-    sd = 1 / Math.sqrt(n - 3)
+    sd = 1 / Math.Sqr(n - 3)
     
     Dim lower As Double
     lower = WorksheetFunction.Tanh(WorksheetFunction.Atanh(r) - 1.96 * sd)
@@ -167,4 +167,86 @@ Public Function DS_Correlation_Spearman95CI(ByVal cellRange1 As Variant, ByVal c
     upper = WorksheetFunction.Tanh(WorksheetFunction.Atanh(r) + 1.96 * sd)
     
     DS_Correlation_Spearman95CI = Math.Round(lower, decimals) & " - " & Math.Round(upper, decimals)
+End Function
+
+Public Function DS_Correlation_PearsonR(ByVal cellRange1 As Variant, ByVal cellRange2 As Variant)
+    If TypeOf cellRange1 Is Range Then
+        cellRange1 = DS_RangeToArray(cellRange1)
+    End If
+    If TypeOf cellRange2 Is Range Then
+        cellRange2 = DS_RangeToArray(cellRange2)
+    End If
+    
+    If Not UBound(cellRange1) = UBound(cellRange2) Then
+        Exit Function
+    End If
+    
+    Dim r As Double
+    r = WorksheetFunction.Pearson(cellRange1, cellRange2)
+    
+    DS_Correlation_PearsonR = r
+End Function
+
+Public Function DS_Correlation_PearsonP(ByVal cellRange1 As Variant, ByVal cellRange2 As Variant)
+    If TypeOf cellRange1 Is Range Then
+        cellRange1 = DS_RangeToArray(cellRange1)
+    End If
+    If TypeOf cellRange2 Is Range Then
+        cellRange2 = DS_RangeToArray(cellRange2)
+    End If
+    
+    If Not UBound(cellRange1) = UBound(cellRange2) Then
+        Exit Function
+    End If
+    
+    Dim r As Double
+    r = DS_Correlation_PearsonR(cellRange1, cellRange2)
+    
+    Dim n As Integer
+    n = UBound(cellRange1) - LBound(cellRange1) + 1
+    
+    Dim t As Double
+    t = Abs(r) * Math.Sqr(n - 2) / Math.Sqr(1 - r * r)
+    
+    Dim df As Integer
+    df = n - 2
+    
+    Dim p As Double
+    p = WorksheetFunction.T_Dist_2T(t, df)
+    
+    DS_Correlation_PearsonP = p
+End Function
+
+Public Function DS_Correlation_Pearson95CI(ByVal cellRange1 As Variant, ByVal cellRange2 As Variant, Optional decimals As Variant)
+    If TypeOf cellRange1 Is Range Then
+        cellRange1 = DS_RangeToArray(cellRange1)
+    End If
+    If TypeOf cellRange2 Is Range Then
+        cellRange2 = DS_RangeToArray(cellRange2)
+    End If
+    
+    If Not UBound(cellRange1) = UBound(cellRange2) Then
+        Exit Function
+    End If
+    
+    If IsMissing(decimals) Then
+        decimals = 2
+    End If
+    
+    Dim r As Double
+    r = DS_Correlation_PearsonR(cellRange1, cellRange2)
+    
+    Dim n As Integer
+    n = UBound(cellRange1) - LBound(cellRange1) + 1
+    
+    Dim sd As Double
+    sd = 1 / Math.Sqr(n - 3)
+    
+    Dim lower As Double
+    lower = WorksheetFunction.Tanh(WorksheetFunction.Atanh(r) - 1.96 * sd)
+    
+    Dim upper As Double
+    upper = WorksheetFunction.Tanh(WorksheetFunction.Atanh(r) + 1.96 * sd)
+    
+    DS_Correlation_Pearson95CI = Math.Round(lower, decimals) & " - " & Math.Round(upper, decimals)
 End Function
