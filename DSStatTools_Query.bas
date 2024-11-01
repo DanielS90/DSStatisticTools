@@ -1,3 +1,4 @@
+Attribute VB_Name = "DSStatTools_Query"
 Option Compare Text
 
 Public Function DS_Select(ByVal cellRange As Range, ByVal conditionRange As Range, ByVal comparison As String)
