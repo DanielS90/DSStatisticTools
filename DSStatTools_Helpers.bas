@@ -1,3 +1,4 @@
+Attribute VB_Name = "DSStatTools_Helpers"
 Option Compare Text
 
 Public Function DS_StringToNumber(ByVal value As Variant, Optional decimalSeparator As Variant, Optional thousandsSeparator As Variant)
@@ -108,26 +109,44 @@ End Function
 
 Public Function DS_JoinArrays(ByVal array1 As Variant, ByVal array2 As Variant)
     Dim n1 As Double
-    n1 = UBound(array1) - LBound(array1) + 1
+    If DS_ArrayInitialized(array1) Then
+        n1 = UBound(array1) - LBound(array1) + 1
+    Else
+        n1 = 0
+    End If
     
     Dim n2 As Double
-    n2 = UBound(array2) - LBound(array2) + 1
+    If DS_ArrayInitialized(array2) Then
+        n2 = UBound(array2) - LBound(array2) + 1
+    Else
+        n2 = 0
+    End If
     
     Dim result() As Variant
+    If n1 = 0 And n2 = 0 Then
+        result = array1
+        DS_JoinArrays = result
+        Exit Function
+    End If
+    
     ReDim result(0 To n1 + n2 - 1)
     
     Dim counter As Integer
     
     Dim val As Variant
-    For Each val In array1
-        result(counter) = val
-        counter = counter + 1
-    Next val
-    
-    For Each val In array2
-        result(counter) = val
-        counter = counter + 1
-    Next val
+    If n1 > 0 Then
+        For Each val In array1
+            result(counter) = val
+            counter = counter + 1
+        Next val
+    End If
+        
+    If n2 > 0 Then
+        For Each val In array2
+            result(counter) = val
+            counter = counter + 1
+        Next val
+    End If
     
     DS_JoinArrays = result
 End Function
