@@ -1,3 +1,4 @@
+Attribute VB_Name = "DSStatTools_ANOVA"
 Public Function DS_KruskalWallisP(ByVal valueRange1 As Range, ByVal valueRange2 As Range, Optional valueRange3 As Variant, Optional valueRange4 As Variant, Optional valueRange5 As Variant, Optional valueRange6 As Variant, Optional valueRange7 As Variant, Optional valueRange8 As Variant, Optional valueRange9 As Variant, Optional valueRange10 As Variant)
     
     Dim allValues As Variant
@@ -473,3 +474,4 @@ Public Function DS_ANOVAOneWayP(ByVal valueRange1 As Range, ByVal valueRange2 As
     
     DS_ANOVAOneWayP = WorksheetFunction.F_Dist_RT(F, groupsDf, errorDf)
 End Function
+
