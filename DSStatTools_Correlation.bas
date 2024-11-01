@@ -1,3 +1,4 @@
+Attribute VB_Name = "DSStatTools_Correlation"
 Public Function DS_Correlation_PointBiserialR(ByVal metricRange As Variant, ByVal binaryRange As Variant)
     If TypeOf cellRange1 Is Range And TypeOf cellRange2 Is Range Then
         Dim array1() As Variant
