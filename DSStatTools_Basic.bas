@@ -1,3 +1,4 @@
+Attribute VB_Name = "DSStatTools_Basic"
 Option Compare Text
 
 Public Function DS_CountIfAny(ByVal cellRange As Range, ByVal comp1 As Variant, Optional comp2 As Variant, Optional comp3 As Variant, Optional comp4 As Variant)
