@@ -1,3 +1,4 @@
+Attribute VB_Name = "DSStatTools_UTest"
 Public Function DS_UTestP(ByVal cellRange1 As Variant, ByVal cellRange2 As Variant, Optional sided As Variant)
     If TypeOf cellRange1 Is Range Then
         cellRange1 = DS_RangeToArray(cellRange1)
@@ -61,11 +62,11 @@ Public Function DS_UTestP(ByVal cellRange1 As Variant, ByVal cellRange2 As Varia
     Dim sd As Double
     sd = Math.Sqr(nl * my / 6)
     
-    Dim z As Double
-    z = (t - my) / sd
+    Dim Z As Double
+    Z = (t - my) / sd
     
-    DS_UTestP = WorksheetFunction.Norm_S_Dist(z, True)
-    If z > 0 Then
+    DS_UTestP = WorksheetFunction.Norm_S_Dist(Z, True)
+    If Z > 0 Then
         DS_UTestP = 1 - DS_UTestP
     End If
     
@@ -74,16 +75,18 @@ Public Function DS_UTestP(ByVal cellRange1 As Variant, ByVal cellRange2 As Varia
     End If
 End Function
 
-Public Function DS_Rank(ByVal value As Variant, ByVal allValues As Variant)
-    Call DS_QuickSort(allValues, LBound(allValues), UBound(allValues))
+Public Function DS_Rank(ByVal value As Variant, ByVal allValues As Variant) As Double
+    Dim sortedValues As Variant
+    sortedValues = allValues ' Copy the array
+    Call DS_QuickSort(sortedValues, LBound(sortedValues), UBound(sortedValues))
     
     Dim rankSum As Double
     Dim occurrences As Integer
+    Dim i As Long
     
-    Dim i As Integer
-    For i = LBound(allValues) To UBound(allValues)
-        If allValues(i) = value Then
-            rankSum = rankSum + i - LBound(allValues) + 1
+    For i = LBound(sortedValues) To UBound(sortedValues)
+        If sortedValues(i) = value Then
+            rankSum = rankSum + i - LBound(sortedValues) + 1
             occurrences = occurrences + 1
         ElseIf occurrences > 0 Then
             Exit For
