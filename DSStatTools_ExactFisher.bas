@@ -1,3 +1,4 @@
+Attribute VB_Name = "DSStatTools_ExactFisher"
 Public Function DS_ExactFisher2x2P(ByVal cellRange As Range)
     
     If Not cellRange.Rows.count = 2 Then
