@@ -1,3 +1,4 @@
+Attribute VB_Name = "DSStatTools_Normal"
 Public Function DS_ShapiroWilkP(ByVal cellRange As Range)
     Dim valueArray() As Variant
     valueArray = DS_RangeToArray(cellRange)
@@ -26,7 +27,7 @@ Private Function DS_ShapiroWilkExtendedP(ByVal valueArray As Variant)
     Dim u As Double
     u = 1 / Math.Sqr(n)
     
-    Dim m As Double
+    Dim M As Double
     
     Dim mArray() As Double
     ReDim mArray(0 To UBound(valueArray))
@@ -38,17 +39,17 @@ Private Function DS_ShapiroWilkExtendedP(ByVal valueArray As Variant)
     
     For i = 0 To n - 1
         mArray(i) = WorksheetFunction.Norm_S_Inv((i + 1 - 0.375) / (n + 0.25))
-        m = m + mArray(i) ^ 2
+        M = M + mArray(i) ^ 2
     Next i
     
-    aArray(UBound(aArray)) = -2.706056 * u ^ 5 + 4.434685 * u ^ 4 - 2.07119 * u ^ 3 - 0.147981 * u ^ 2 + 0.221157 * u + mArray(UBound(mArray)) / Math.Sqr(m)
+    aArray(UBound(aArray)) = -2.706056 * u ^ 5 + 4.434685 * u ^ 4 - 2.07119 * u ^ 3 - 0.147981 * u ^ 2 + 0.221157 * u + mArray(UBound(mArray)) / Math.Sqr(M)
     aArray(0) = -aArray(UBound(aArray))
     
-    aArray(UBound(aArray) - 1) = -3.582633 * u ^ 5 + 5.682633 * u ^ 4 - 1.752461 * u ^ 3 - 0.293762 * u ^ 2 + 0.042981 * u + mArray(UBound(mArray) - 1) / Math.Sqr(m)
+    aArray(UBound(aArray) - 1) = -3.582633 * u ^ 5 + 5.682633 * u ^ 4 - 1.752461 * u ^ 3 - 0.293762 * u ^ 2 + 0.042981 * u + mArray(UBound(mArray) - 1) / Math.Sqr(M)
     aArray(1) = -aArray(UBound(aArray) - 1)
     
     Dim epsilon As Double
-    epsilon = (m - 2 * mArray(UBound(mArray)) ^ 2 - 2 * mArray(UBound(mArray) - 1) ^ 2) / (1 - 2 * aArray(UBound(aArray)) ^ 2 - 2 * aArray(UBound(aArray) - 1) ^ 2)
+    epsilon = (M - 2 * mArray(UBound(mArray)) ^ 2 - 2 * mArray(UBound(mArray) - 1) ^ 2) / (1 - 2 * aArray(UBound(aArray)) ^ 2 - 2 * aArray(UBound(aArray) - 1) ^ 2)
     
     For i = 2 To n - 3
         aArray(i) = mArray(i) / Math.Sqr(epsilon)
@@ -74,11 +75,11 @@ Private Function DS_ShapiroWilkExtendedP(ByVal valueArray As Variant)
     Dim sigma As Double
     sd = Math.Exp(0.0030302 * Math.Log(n) ^ 2 - 0.082676 * Math.Log(n) - 0.4803)
     
-    Dim z As Double
-    z = (Math.Log(1 - w) - my) / sd
+    Dim Z As Double
+    Z = (Math.Log(1 - w) - my) / sd
     
     Dim p As Double
-    p = 1 - WorksheetFunction.Norm_S_Dist(z, True)
+    p = 1 - WorksheetFunction.Norm_S_Dist(Z, True)
     
     DS_ShapiroWilkExtendedP = p
 End Function
