@@ -5,8 +5,12 @@ This VBA toolpack provides a range of statistical functions that can be used as 
 ### Import Instructions
 
 1. Open the **Visual Basic for Applications (VBA)** editor (`Alt + F11`).
-2. Go to **File > Import File...** and select `DSStatTools_Basic.bas`.
-3. The functions are now available to be used as Excel formulas.
+2. Go to **File > Import File...** and select the .bas file.
+3. The functions inside this file are now available to be used as Excel formulas.
+
+Note: Certain functions rely on additional modules for full functionality: `DSStatTools_Basic.bas`, `DSStatTools_Helpers.bas` and `DSStatTools_Query.bas` provide essentials for most other modules and should always be included in the worksheet.
+
+Additionally, the ROC modules (`DSStatTools_ROC*.bas`) and ROCCorr modules (`DSStatTools__ROCCorr*.bas`) are interdependent and should be included together.
 
 ---
 
