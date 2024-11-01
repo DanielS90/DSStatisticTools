@@ -1,3 +1,4 @@
+Attribute VB_Name = "DSStatTools_ChiSq"
 Public Function DS_ChiSquare(ByVal cellRange As Range)
     
     Dim rowSums() As Double
@@ -11,14 +12,14 @@ Public Function DS_ChiSquare(ByVal cellRange As Range)
     Dim i As Integer
     For i = 1 To cellRange.Rows.count
         Dim rowSum As Integer
-        rowSum = WorksheetFunction.Sum(cellRange.Rows(i))
+        rowSum = WorksheetFunction.sum(cellRange.Rows(i))
         rowSums(i) = rowSum
         totalSum = totalSum + rowSum
     Next i
     
     For i = 1 To cellRange.Columns.count
         Dim colSum As Integer
-        colSum = WorksheetFunction.Sum(cellRange.Columns(i))
+        colSum = WorksheetFunction.sum(cellRange.Columns(i))
         colSums(i) = colSum
     Next i
     
@@ -67,14 +68,14 @@ Public Function DS_ChiSquareP(ByVal cellRange As Range)
     Dim i As Integer
     For i = 1 To cellRange.Rows.count
         Dim rowSum As Integer
-        rowSum = WorksheetFunction.Sum(cellRange.Rows(i))
+        rowSum = WorksheetFunction.sum(cellRange.Rows(i))
         rowSums(i) = rowSum
         totalSum = totalSum + rowSum
     Next i
     
     For i = 1 To cellRange.Columns.count
         Dim colSum As Integer
-        colSum = WorksheetFunction.Sum(cellRange.Columns(i))
+        colSum = WorksheetFunction.sum(cellRange.Columns(i))
         colSums(i) = colSum
     Next i
     
